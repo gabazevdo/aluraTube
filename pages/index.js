@@ -2,6 +2,8 @@ import config from '../config.json'
 import styled from 'styled-components'
 import { CSSReset } from '../src/components/CSSReset'
 import Menu from '../src/components/Menu'
+import Banner from '../src/components/Banner'
+import Footer from '../src/components/Footer'
 import { StyledTimeline } from '../src/components/Timeline'
 
 function HomePage() {
@@ -16,8 +18,10 @@ function HomePage() {
         }}
       >
         <Menu />
+        <Banner />
         <Header />
         <Timeline playlists={config.playlists}>Conteúdo</Timeline>
+        <Footer favorites={config.favorites} />
       </div>
     </>
   )
@@ -31,7 +35,6 @@ const StyledHeader = styled.div`
     border-radius: 50%;
   }
   .user-info {
-    margin-top: 50px;
     display: flex;
     align-items: center;
     width: 100%;
@@ -54,14 +57,12 @@ function Header() {
   )
 }
 
-function Timeline(propriedades) {
-  const playlistNames = Object.keys(propriedades.playlists)
+function Timeline(props) {
+  const playlistNames = Object.keys(props.playlists)
   return (
     <StyledTimeline>
       {playlistNames.map(playlistName => {
-        const videos = propriedades.playlists[playlistName]
-        console.log(playlistName)
-        console.log(videos)
+        const videos = props.playlists[playlistName]
         return (
           <section>
             <h2>{playlistName}</h2>
